@@ -3,7 +3,7 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class EditExercise extends Component {
+export default class EditExcercise extends Component {
   constructor(props) {
     super(props);
 
@@ -23,6 +23,7 @@ export default class EditExercise extends Component {
   }
 
   componentDidMount() {
+    console.log("in exercises");
     axios
       .get("http://localhost:5000/excercises/" + this.props.match.params.id)
       .then(response => {
@@ -36,7 +37,7 @@ export default class EditExercise extends Component {
       .catch(function(error) {
         console.log(error);
       });
-
+    console.log("in users");
     axios
       .get("http://localhost:5000/users/")
       .then(response => {

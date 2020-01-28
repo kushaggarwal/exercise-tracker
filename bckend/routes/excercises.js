@@ -1,60 +1,57 @@
 const router = require("express").Router();
-let Excercise = require("../models/exercise.model");
+let Exercise = require("../models/exercise.model");
 
 router.route("/").get((req, res) => {
-  Excercise.find()
-    .then(excercises => res.json(excercises))
-    .catch(err => res.status(400).json("Error" + err));
+  Exercise.find()
+    .then(exercises => res.json(exercises))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/add").post((req, res) => {
   const username = req.body.username;
-  const duration = Number(req.body.duration);
   const description = req.body.description;
+  const duration = Number(req.body.duration);
   const date = Date.parse(req.body.date);
-  const newExcercise = new Excercise({ username, duration, description, date });
-  newExcercise
+
+  const newExercise = new Exercise({
+    username,
+    description,
+    duration,
+    date
+  });
+
+  newExercise
     .save()
-    .then(excercises => res.json("Excercise added"))
-    .catch(err => res.status(400).json("Error" + err));
+    .then(() => res.json("Exercise added!"))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/:id").get((req, res) => {
-  Excercise.findById(req.params.id)
-    .then(excercise => {
-      res.json(excercise);
-    })
-    .catch(err => {
-      res.status(400).json("Error" + err);
-    });
+  Exercise.findById(req.params.id)
+    .then(exercise => res.json(exercise))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/:id").delete((req, res) => {
-  Excercise.findByIdAndDelete(req.params.id)
-    .then(() => {
-      res.json("excercise deleted");
-    })
-    .catch(err => {
-      res.status(400).json("Error" + err);
-    });
+  Exercise.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Exercise deleted."))
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route("/update/:id").post((req, res) => {
-  Excercise.findById(req.params.id)
-    .then(excercise => {
-      excercise.username = req.body.username;
-      excercise.duration = Number(req.body.duration);
-      excercise.description = req.body.description;
-      excercise.data = Date.parse(req.body.date);
+  Exercise.findById(req.params.id)
+    .then(exercise => {
+      exercise.username = req.body.username;
+      exercise.description = req.body.description;
+      exercise.duration = Number(req.body.duration);
+      exercise.date = Date.parse(req.body.date);
 
-      excercise
+      exercise
         .save()
-        .then(excercises => res.json("Excercise Updated"))
-        .catch(err => res.status(400).json("Error" + err));
+        .then(() => res.json("Exercise updated!"))
+        .catch(err => res.status(400).json("Error: " + err));
     })
-    .catch(err => {
-      res.status(400).json("Error" + err);
-    });
+    .catch(err => res.status(400).json("Error: " + err));
 });
 
 module.exports = router;
