@@ -10,13 +10,15 @@ import EditExcercise from "./components/edit-exercise.components";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Route path="/" exact component={ExcerciseList}></Route>
-      <Route path="/edit/:id" component={EditExcercise}></Route>
-      <Route path="/create" component={CreateExcercise}></Route>
-      <Route path="/user" component={CreateUser}></Route>
-    </Router>
+    <div className="container">
+      <Router>
+        <Navbar />
+        <Route path="/" exact component={ExcerciseList}></Route>
+        <Route path="/edit/:id" component={EditExcercise}></Route>
+        <Route path="/create" component={CreateExcercise}></Route>
+        <Route path="/user" component={CreateUser}></Route>
+      </Router>
+    </div>
   );
 }
 
