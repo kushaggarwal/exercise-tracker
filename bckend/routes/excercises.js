@@ -30,7 +30,7 @@ router.route("/:id").get((req, res) => {
 });
 
 router.route("/:id").delete((req, res) => {
-  Excercise.findByIdAndDeletex(req.params.id)
+  Excercise.findByIdAndDelete(req.params.id)
     .then(() => {
       res.json("excercise deleted");
     })
